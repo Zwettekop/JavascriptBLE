@@ -4,19 +4,8 @@ import { setupBLE, leesValue, schrijfUint32Value } from "./module/ble.js";
 let schrijfKar;
 let serviceNaam = "19b10000-e8f2-537e-4f6c-d104768a1214";
 let karakteristiekNamen = ["19b10001-e8f2-537e-4f6c-d104768a1214"];
-let mobileVersion = false
 
 //! Add event listeners
-
-document.getElementById("chkMobile").onchange = function (dit) {
-    mobileVersion = dit.target.checked;
-    console.log(mobileVersion ? "Switch to mobile" : "Switch to desktop");
-    let elementen = document.querySelectorAll(".resp");
-    let size = mobileVersion ? 2.5 : 1.3;
-    elementen.forEach(element => {
-        element.style = `font-size: ${size}em`;
-    });
-}
 
 document.getElementById("iptService").onchange = function () {
     serviceNaam = this.value;
