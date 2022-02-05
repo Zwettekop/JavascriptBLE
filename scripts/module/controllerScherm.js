@@ -81,7 +81,7 @@ function startScherm(canvas1) {
         clickCanvas();
     }, false);
 
-    //Move
+    //Move 
     canvas.onmousemove = function (e) {
         updateMousePosition(e.clientX, e.clientY);
     };
