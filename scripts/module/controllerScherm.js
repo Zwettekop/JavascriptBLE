@@ -70,30 +70,49 @@ function startScherm(canvas1) {
     context.strokeStyle = "#FFFFFF";
     context.fillStyle = "white";
 
-    canvas.onmousedown = () => {
+    //Start dragging
+    canvas.onmousedown = (e) => {
+        updateMousePosition(e.clientX, e.clientY);
         clickCanvas();
     };
-    canvas.touchstart = () => {
+    canvas.addEventListener("touchstart", function (e) {
+        e.preventDefault();//stops scrolling
+        updateMousePosition(e.touches[0].clientX, e.touches[0].clientY);
         clickCanvas();
-        console.log("canvas touched");
-    }
-    canvas.onmousemove = () => {
-        let rect = canvas.getBoundingClientRect();
-        mouseX = parseInt((event.clientX - rect.left) - margin);
-        mouseY = parseInt(height - (event.clientY - rect.top) + margin);
+    }, false);
+
+    //Move
+    canvas.onmousemove = function (e) {
+        updateMousePosition(e.clientX, e.clientY);
     };
 
+    canvas.addEventListener("touchmove", function (e) {
+        e.preventDefault();//stop scrolling
+        updateMousePosition(e.touches[0].clientX, e.touches[0].clientY);
+    }, false);
 
-
+    //Stop drag
     canvas.onmouseup = () => {
-        if (draggingDot)
-            draggingDot = false;
+        draggingDot = false;
     };
+    canvas.addEventListener("touchend", function (e) {
+        e.preventDefault();//stop scrolling
+        draggingDot = false;
+    }, false);
 
     fillPoints([140, 200, 110, 140]);
     param = generateSpline(points);
     setInterval(update, 10);
 }
+
+
+function updateMousePosition(x, y) {
+    let rect = canvas.getBoundingClientRect();
+    mouseX = parseInt((x - rect.left) - margin);
+    mouseY = parseInt(height - (y - rect.top) + margin);
+    // console.log(`${x}, ${y}`);
+}
+
 
 function update() {
     if (draggingDot)
