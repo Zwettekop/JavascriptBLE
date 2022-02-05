@@ -1,4 +1,4 @@
-import { setupBLE, schrijfUint32Value, setLogging } from "./module/ble.js";
+import { setupBLE, schrijfUint32Value } from "./module/ble.js";
 import { amplitudeToTicks, speedToDelta, setLead } from "./module/stepper.js";
 import { addPoint, removePoint, startScherm, setDebugging, setInterpolationMethod } from "./module/controllerScherm.js";
 //altijd let gebruiken!!
@@ -19,7 +19,6 @@ let speedLastTransmitted = 0;
 let amplitude;
 let amplitudeLastTransmitted = 0;
 
-//setLogging(false);
 
 //Stepper motor conf
 setLead(0.2);

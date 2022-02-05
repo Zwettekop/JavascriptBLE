@@ -19,6 +19,7 @@ let mouseX = 0;
 let mouseY = 0;
 
 let dotSize = 10;
+let dotSizeHitbox = dotSize;
 let draggingDot = false;
 let draggedDotIndex = 0;
 
@@ -72,11 +73,13 @@ function startScherm(canvas1) {
 
     //Start dragging
     canvas.onmousedown = (e) => {
+        dotSizeHitbox = dotSize;
         updateMousePosition(e.clientX, e.clientY);
         clickCanvas();
     };
     canvas.addEventListener("touchstart", function (e) {
         e.preventDefault();//stops scrolling
+        dotSizeHitbox = dotSize * 2;
         updateMousePosition(e.touches[0].clientX, e.touches[0].clientY);
         clickCanvas();
     }, false);
@@ -243,16 +246,17 @@ function drawSplineX3Vel(steps = 500) {
     context.stroke();
 }
 
-//* Punten verslepen
+//*Punten clicken
 function clickCanvas() {
     for (let i = 0; i < points.length; i++)
-        if (distance(mouseX, mouseY, points[i].x, points[i].y) < dotSize) {
+        if (distance(mouseX, mouseY, points[i].x, points[i].y) < dotSizeHitbox) {
             draggingDot = true;
             // console.log(`Clicked dot nr. ${i + 1}`);
             draggedDotIndex = i;
         }
 }
 
+//* Punten verslepen
 function dragDot() {
     //Put point within bounds
     points[draggedDotIndex] = {
