@@ -26,6 +26,9 @@ setLead(0.2);
 
 //Start scherm
 let canvas = document.getElementById("idCanvas");
+let canvasParent = document.getElementById("canvasParent");
+canvas.width = canvasParent.clientWidth;
+canvas.height = canvasParent.clientHeight;
 startScherm(canvas);
 
 //! Add event listeners

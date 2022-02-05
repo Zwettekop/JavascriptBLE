@@ -59,13 +59,13 @@ function setInterpolationMethod(naam) {
 //*Setup canvas
 function startScherm(canvas1) {
     canvas = canvas1;
+
     width = canvas.width - 2 * margin;
     height = canvas.height - 2 * margin;
     console.log(`Canvas started with dimensions (${width}, ${height})`);
+
     context = canvas.getContext("2d");
     context.imageSmoothingEnabled = false;
-    console.log(`Started canvas with: ${width} and ${height}`)
-
     context.lineWidth = 1;
     context.strokeStyle = "#FFFFFF";
     context.fillStyle = "white";
@@ -79,7 +79,7 @@ function startScherm(canvas1) {
         e.preventDefault();//stops scrolling
         updateMousePosition(e.touches[0].clientX, e.touches[0].clientY);
         clickCanvas();
-    }, false);  
+    }, false);
 
     //Move 
     canvas.onmousemove = function (e) {
