@@ -11,7 +11,7 @@ let karakteristiekNamen = [
 ];
 let karTicks;
 let karDelta;
-let mobileVersion = false
+
 
 let busy = false;
 let speed;
@@ -29,19 +29,9 @@ let canvas = document.getElementById("idCanvas");
 startScherm(canvas);
 
 //! Add event listeners
-//Change to mobile version and back
-document.getElementById("chkMobile").onchange = function (dit) {
-    mobileVersion = dit.target.checked;
-    console.log(mobileVersion ? "Switch to mobile" : "Switch to desktop");
-    let elementen = document.querySelectorAll(".resp");
-    let size = mobileVersion ? 2.5 : 1.3;
-    elementen.forEach(element => {
-        element.style = `font-size: ${size}em`;
-    });
-}
-
 document.getElementById("chkDebugging").onchange = function (dit) {
     setDebugging(dit.target.checked);
+    document.getElementById("lblDebugging").innerHTML = `debugging mode is ${dit.target.checked === true ? "on" : "off"}`;
 }
 
 //Clicked on start button

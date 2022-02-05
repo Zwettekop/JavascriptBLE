@@ -73,11 +73,18 @@ function startScherm(canvas1) {
     canvas.onmousedown = () => {
         clickCanvas();
     };
+    canvas.touchstart = () => {
+        clickCanvas();
+        console.log("canvas touched");
+    }
     canvas.onmousemove = () => {
         let rect = canvas.getBoundingClientRect();
         mouseX = parseInt((event.clientX - rect.left) - margin);
         mouseY = parseInt(height - (event.clientY - rect.top) + margin);
     };
+
+
+
     canvas.onmouseup = () => {
         if (draggingDot)
             draggingDot = false;
