@@ -5,3 +5,35 @@ body {
 #canvasParent {
     aspect-ratio: 5 / 4;
 }
+
+canvas {
+    border-radius: 10px;
+    border: 1px solid #333344;
+}
+
+
+/* Stop selecting things like buttons or SVG buttons! */
+.disable-select {
+    user-select: none;
+    /* supported by Chrome and Opera */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+}
+
+
+/* SVG buttons */
+.svg-button:hover {
+    filter: brightness(90%);
+}
+
+.svg-button:active {
+    /*background-color: #3e8e41;*/
+    transform: translateY(1px);
+    filter: brightness(110%);
+}

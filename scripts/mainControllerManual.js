@@ -50,26 +50,64 @@ document.getElementById('btnBLE').onclick = function () {
 };
 
 
-//Button up pressed
-document.getElementById("btnGoUp").onmousedown = function () {
+function goUp() {
     console.log("Go up");
     isMoving = true;
     writeCommand(1);
 }
-//Button down pressed
-document.getElementById("btnGoDown").onmousedown = function () {
+function goDown() {
     console.log("Go down");
     isMoving = true;
     writeCommand(-1);
 }
-
-window.addEventListener("mouseup", function () {
+function stopMoving() {
     if (isMoving) {
         console.log("Stop moving");
         isMoving = false;
     }
+}
+
+
+//*Movement controls
+
+//? For touch events you have to use .addEventlistener() or it won't work: .ontouchdown doesn't do anything!
+
+//Keys
+document.addEventListener("keydown", (event) => {
+    if (event.key === 'ArrowLeft') {
+        goDown();
+    } if (event.key === 'ArrowRight') {
+        goUp();
+    }
 });
 
+document.addEventListener("keyup", (event) => {
+    stopMoving();
+})
+
+//Buttons
+document.getElementById("btnGoUp").onmousedown = goUp;
+document.getElementById("btnGoDown").onmousedown = goDown;
+window.addEventListener("mouseup", stopMoving);
+document.getElementById("btnGoUp").addEventListener('touchstart', goUp);
+document.getElementById("btnGoUp").addEventListener('touchend', stopMoving);
+document.getElementById("btnGoDown").addEventListener('touchstart', goDown);
+document.getElementById("btnGoDown").addEventListener('touchend', stopMoving);
+
+
+//SVG's
+document.getElementById("svgBtnGoUp").onmousedown = goUp;
+document.getElementById("svgBtnGoUp").onmouseup = stopMoving;
+document.getElementById("svgBtnGoDown").onmousedown = goDown;
+document.getElementById("svgBtnGoDown").onmouseup = stopMoving;
+
+document.getElementById("svgBtnGoUp").addEventListener('touchstart', goUp);
+document.getElementById("svgBtnGoUp").addEventListener('touchend', stopMoving);
+document.getElementById("svgBtnGoDown").addEventListener('touchstart', goDown);
+document.getElementById("svgBtnGoDown").addEventListener('touchend', stopMoving);
+
+
+//Send move command
 function writeCommand(nr) {
     /* Legend:
     -1 go down
@@ -82,7 +120,6 @@ function writeCommand(nr) {
             else
                 schrijfUint32Value(karRichting, 0);
         });
-
 }
 
 //*Speed max adjustment

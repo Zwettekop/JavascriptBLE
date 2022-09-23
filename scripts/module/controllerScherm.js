@@ -2,8 +2,6 @@ export { startScherm, addPoint, removePoint, setDebugging, setInterpolationMetho
 import { generateRicos, generateX2Polynomials, generateX3polynomials } from "./splineGenerator.js";
 
 //implement sending the data to the stepper motor box: 
-//TODO Fix amplitude slider
-//TODO Fix periode slider
 //TODO Try to send speed to arduino
 //TODO Try to send periode to arduino
 //TODO Try to send X3 spline to arduino (a,b,c values arr)
