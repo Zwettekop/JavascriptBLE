@@ -16,21 +16,10 @@ let karakteristiekNamen = [
     "00000000-0000-0000-0000-000deadbeef3",
     "00000000-0000-0000-0000-000deadbeef4"
 ];
-let mobileVersion = false
 
 //Stepper motor conf
 setLead(0.2);
 
-//*Event listeners
-//Change to mobile version and back
-document.getElementById("chkMobile").onchange = function (dit) {
-    mobileVersion = dit.target.checked;
-    console.log(mobileVersion ? "Switch to mobile" : "Switch to desktop");
-    let size = mobileVersion ? 2.5 : 1.3;
-    document.querySelectorAll(".resp").forEach(element => {
-        element.style = `font-size: ${size}em`;
-    });
-}
 
 //Clicked on start button
 document.getElementById('btnBLE').onclick = function () {
@@ -84,16 +73,6 @@ document.addEventListener("keydown", (event) => {
 document.addEventListener("keyup", (event) => {
     stopMoving();
 })
-
-//Buttons
-document.getElementById("btnGoUp").onmousedown = goUp;
-document.getElementById("btnGoDown").onmousedown = goDown;
-window.addEventListener("mouseup", stopMoving);
-document.getElementById("btnGoUp").addEventListener('touchstart', goUp);
-document.getElementById("btnGoUp").addEventListener('touchend', stopMoving);
-document.getElementById("btnGoDown").addEventListener('touchstart', goDown);
-document.getElementById("btnGoDown").addEventListener('touchend', stopMoving);
-
 
 //SVG's
 document.getElementById("svgBtnGoUp").onmousedown = goUp;

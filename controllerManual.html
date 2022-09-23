@@ -22,86 +22,104 @@
 <html lang="en">
 
 <body>
-    <header>
-        <h1>BLE Polair</h1>
-    </header>
-    <div class="paneel">
-        <div class="container">
-            <div class="container_item">
-                <nav class="resp">
-                    <a href="./index.html">Generieke controller</a>|
-                    <a href="./controllerManual.html">Manual control</a>|
-                    <a href="./controllerSweep.html">Sweep</a>|
-                    <a href="./controllerGUI.html">Custom sweep</a>
-                </nav>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="">BLE Peripheral Controller</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Don't forget to include the ID! -->
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="./index.html">Generic controller</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="./controllerManual.html">Manual controller</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="./controllerSweep.html">Sweep controller</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./controllerGUI.html">GUI controller</a></li>
+                </ul>
             </div>
         </div>
-    </div>
-    <div class="paneel">
-        <div class="container">
-            <div class="container_item">
-                <h2>BLE connection</h2>
-            </div>
-            <div class="container_item">
-                <button type="button" id="btnBLE" class="resp">Connect to project box</button>
-            </div>
-            <div class="container_item">
-                <label id="lblStatus" class="resp">Not connected</label>
-            </div>
-        </div>
-    </div>
-    <div class="paneel">
-        <div class="container">
-            <div class="container_item">
-                <h2>Control stepper motor</h2>
-            </div>
-            <!--Speed slider-->
-            <div class="container_item">
-                <label class="resp">Speed</label>
-                <label class="resp">0.1</label>
-                <input id="sldSpeed" type="range" min="0.1" max="1" step="0.1">
-                <input type="number" id="iptSpeed" style="width: 2.5em" value="1" min="1" class="resp">
-                <label class="resp">cm/s</label>
-            </div>
-            <div class="container-item">
-                <label id="lblSpeed" class="resp">0.6 cm/s</label>
-            </div>
-            <br>
-            <br>
-            <div class="container_item">
-                <p>
-                    You can use the up and down buttons below or the left and right keys (Left is down and
-                    right is up up). Touch support is now enabled for mobile devices.
-                </p>
-            </div>
-            <!-- Up svg button -->
-            <div class="disable-select container-item svg-button " style="margin-bottom: 1em;" id="svgBtnGoUp">
-                <svg viewBox="-1 -1 2 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                    fill="#1596d1" width="5em" height="5em">
-                    <!-- viewBox defines the coordinate system.-->
-                    <polygon points="0 -1, 1 0, -1 0 " stroke-width="0" />
-                    <rect x="-0.4" y="0" width="0.8" height="1" stroke-width="0" />
-                </svg>
-            </div>
-            <!-- Down svg button -->
-            <div class="disable-select container-item svg-button" id="svgBtnGoDown">
-                <svg viewBox="-1 -1 2 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                    fill=" #1596d1" width="5em" height="5em">
-                    <polygon points="0 1, 1 0, -1 0 " stroke-width="0" />
-                    <rect x="-0.4" y="-1" width="0.8" height="1" stroke-width="0" />
-                </svg>
-            </div>
+    </nav>
 
-        </div>
-    </div>
-    <div class="paneel">
-        <div class="container">
-            <div class="container_item">
-                <label class="resp">Mobile version: </label>
-                <input id="chkMobile" type="checkbox">
+    <main class="container mb-4">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+
+                <!-- Card make connection -->
+                <div class="card bg-dark text-white text-center mb-4">
+                    <div class="card-header">
+                        <h3>BLE connection</h3>
+                    </div>
+                    <div class="card-body ">
+                        <form>
+                            <div class="mb-3">
+                                <button type="button" id="btnBLE" class="btn btn-primary">Connect to project
+                                    box</button>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="col-form-label">Status: </label>
+                                <label id="lblStatus" class="col-form-label">Not connected</label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Card to control stepper motor -->
+                <div class="card bg-dark text-white text-center mb-4">
+                    <div class="card-header">
+                        <h3>Control stepper motor</h3>
+                    </div>
+                    <div class="card-body">
+                        <!--Speed slider-->
+                        <div class="container_item">
+                            <label class="resp">Speed</label>
+                            <label class="resp">0.1</label>
+                            <input id="sldSpeed" type="range" min="0.1" max="1" step="0.1">
+                            <input type="number" id="iptSpeed" style="width: 2.5em" value="1" min="1" class="resp">
+                            <label class="resp">cm/s</label>
+                        </div>
+                        <div class="container-item">
+                            <label id="lblSpeed" class="resp">0.6 cm/s</label>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="container_item">
+                            <p>
+                                You can use the up and down buttons below or the left and right keys (Left is down and
+                                right is up up). Touch support is now enabled for mobile devices.
+                            </p>
+                        </div>
+                        <!-- Up svg button -->
+                        <div class="disable-select container-item svg-button " style="margin-bottom: 1em;"
+                            id="svgBtnGoUp">
+                            <svg viewBox="-1 -1 2 2" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" fill="#1596d1" width="5em" height="5em">
+                                <!-- viewBox defines the coordinate system.-->
+                                <polygon points="0 -1, 1 0, -1 0 " stroke-width="0" />
+                                <rect x="-0.4" y="0" width="0.8" height="1" stroke-width="0" />
+                            </svg>
+                        </div>
+                        <!-- Down svg button -->
+                        <div class="disable-select container-item svg-button" id="svgBtnGoDown">
+                            <svg viewBox="-1 -1 2 2" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" fill=" #1596d1" width="5em" height="5em">
+                                <polygon points="0 1, 1 0, -1 0 " stroke-width="0" />
+                                <rect x="-0.4" y="-1" width="0.8" height="1" stroke-width="0" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
+            <div class="col-lg-3"></div>
         </div>
-    </div>
+    </main>
+
+
 </body>
 
 
