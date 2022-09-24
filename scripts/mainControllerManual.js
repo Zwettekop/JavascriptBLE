@@ -3,6 +3,7 @@ import { amplitudeToTicks, speedToDelta, setLead } from "./module/stepper.js";
 
 let speed = 1;
 let busy = false;
+let connected = false;
 let isMoving = false;
 let speedLastTransmitted = 0;
 
@@ -20,7 +21,6 @@ let karakteristiekNamen = [
 //Stepper motor conf
 setLead(0.2);
 
-
 //Clicked on start button
 document.getElementById('btnBLE').onclick = function () {
     let label = document.getElementById("lblStatus");
@@ -30,68 +30,64 @@ document.getElementById('btnBLE').onclick = function () {
         karDelta = res[1];
         karMode = res[2];
         label.innerHTML = "Connected";
+        connected = true;
         updateSpeed();
         schrijfUint32Value(karMode, 0);
     }).catch(function (problem) {
         label.innerHTML = "Failed";
         console.log("Failed: " + problem);
+        connected = false;
     });
 };
 
-
 function goUp() {
+    if (!connected) return;
     console.log("Go up");
     isMoving = true;
     writeCommand(1);
 }
 function goDown() {
+    if (!connected) return;
     console.log("Go down");
     isMoving = true;
     writeCommand(-1);
 }
 function stopMoving() {
-    if (isMoving) {
-        console.log("Stop moving");
-        isMoving = false;
-    }
+    console.log("Stop moving");
+    isMoving = false;
 }
 
 
 //*Movement controls
 
-//? For touch events you have to use .addEventlistener() or it won't work: .ontouchdown doesn't do anything!
-
 //Keys
 document.addEventListener("keydown", (event) => {
-    if (event.key === 'ArrowLeft') {
+    if (event.key === 'ArrowLeft')
         goDown();
-    } if (event.key === 'ArrowRight') {
+    else if (event.key === 'ArrowRight')
         goUp();
-    }
 });
 
 document.addEventListener("keyup", (event) => {
     stopMoving();
 })
 
-//SVG's
+//SVG buttons's
 document.getElementById("svgBtnGoUp").onmousedown = goUp;
 document.getElementById("svgBtnGoUp").onmouseup = stopMoving;
 document.getElementById("svgBtnGoDown").onmousedown = goDown;
 document.getElementById("svgBtnGoDown").onmouseup = stopMoving;
-
+//? For touch events you have to use .addEventlistener() or it won't work: .ontouchdown doesn't do anything!
 document.getElementById("svgBtnGoUp").addEventListener('touchstart', goUp);
 document.getElementById("svgBtnGoUp").addEventListener('touchend', stopMoving);
 document.getElementById("svgBtnGoDown").addEventListener('touchstart', goDown);
 document.getElementById("svgBtnGoDown").addEventListener('touchend', stopMoving);
 
-
 //Send move command
 function writeCommand(nr) {
-    /* Legend:
-    -1 go down
-    0 don't move  
-    1 go up*/
+    // Send '-1' to go down, '0' to stand still,'1' to go up
+    if (!connected)
+        return;
     schrijfUint32Value(karRichting, nr)
         .then(() => {
             if (isMoving)
@@ -101,19 +97,22 @@ function writeCommand(nr) {
         });
 }
 
-//*Speed max adjustment
+
+//*Speed adjustments 
+
+//Speed max adjustment
 document.getElementById("iptSpeed").onchange = function (ding) {
     document.getElementById("sldSpeed").max = ding.target.value;
     updateSpeed();
 };
 
-//*Slider speed
+//Slider speed
 document.getElementById("sldSpeed").oninput = updateSpeed;
 
 function updateSpeed() {
     speed = document.getElementById("sldSpeed").value;
     document.getElementById("lblSpeed").innerHTML = `${speed} cm/s`;
-    if (busy === false) {
+    if (busy === false && connected) {
         busy = true;
         schrijfRealTimeSpeed(speed);
     }
